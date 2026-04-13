@@ -1,0 +1,24 @@
+# Data files
+data/*.csv
+data/*.xlsx
+
+# Large model files
+models/*.pkl
+models/*.h5
+models/*.keras
+
+# Python
+__pycache__/
+*.pyc
+.env
+venv/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
