@@ -110,7 +110,116 @@ pipeline that:
 
 ---
 
-9  Methodology
+9 Installation & Usage
 
-This project follows the **CRISP-DM** (Cross-Industry Standard
-Process for Data Mining) framework:
+### Prerequisites
+- Python 3.13
+- pip
+
+**Clone the Repository
+```bash
+git clone https://github.com/yourusername/uk-aqi-prediction.git
+cd uk-aqi-prediction
+```
+
+** Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+ Step 1 — Download Data
+Download hourly pollutant data from the DEFRA UK-AIR portal:
+👉 https://uk-air.defra.gov.uk/data/data-selector
+
+Place the CSV file in the `/data` folder.
+See `data/README.md` for detailed instructions.
+
+ Step 2 — Train the Models
+```bash
+python src/train_model.py
+```
+
+ Step 3 — Launch the App
+```bash
+streamlit run src/app.py
+```
+
+---
+
+10 Technology Stack
+
+| Library | Version | Purpose |
+|---|---|---|
+| pandas | 2.x | Data manipulation and preprocessing |
+| NumPy | 1.26.x | Numerical operations |
+| scikit-learn | 1.4.x | Random Forest, preprocessing, metrics |
+| XGBoost | 2.x | Gradient boosting classifier |
+| TensorFlow/Keras | 2.16.x | LSTM deep learning model |
+| imbalanced-learn | 0.12.x | SMOTE class balancing |
+| Streamlit | 1.35.x | Web application deployment |
+| Matplotlib/Seaborn | 3.8.x | Visualisation |
+| joblib | 1.3.x | Model serialisation and caching |
+
+---
+
+11 Limitations & Future Work
+
+### Current Limitations
+- Multi-city data uses synthetic Gaussian expansion due to limited
+  AURN coverage outside London and Manchester
+- Meteorological variables (wind speed, temperature, humidity,
+  pressure) not included in current feature set
+- LSTM uses single-timestep input; full sequence modelling would
+  improve performance
+- Validation metrics reflect SMOTE-balanced distribution rather
+  than natural class proportions
+
+12 Recommended Future Work
+- Replace synthetic expansion with genuine city-specific AURN data
+- Integrate Met Office open data API for meteorological features
+- Retrain LSTM with sliding window multi-timestep sequence input
+- Apply conformal prediction for calibrated uncertainty intervals
+- Connect to DEFRA real-time data feed for live predictions
+- Conduct equity audit across deprived and affluent monitoring areas
+
+---
+
+13 Data Source & Licence
+
+All data sourced from the **DEFRA UK-AIR Portal**
+- https://uk-air.defra.gov.uk
+
+Published under the **Open Government Licence v3.0**
+- https://www.nationalarchives.gov.uk/doc/open-government-licence
+
+Raw data files are not included in this repository due to file size.
+
+---
+ 14 Academic Context
+
+This project was developed in partial fulfilment of the requirements
+for the degree of **MSc Data Science** at Coventry University.
+
+
+| **Module** | 7150CEM Data Science Project |
+| **Submission** | April 2026 |
+| **Ethics Approval** | P193103 |
+| **Supervisor** | Omid Chatrabgoun |
+
+---
+15 Acknowledgements
+
+- **DEFRA** and the UK-AIR monitoring network for open access data
+- **Coventry University** School of Computing for project supervision
+- Open source contributors of scikit-learn, XGBoost and Streamlit
+- Public Health England for air quality health impact statistics
+
+---
+
+16 Contact
+
+Animesh Buwa
+MSc Data Science — Coventry University
+Student ID: 15863968
+---
+
+
