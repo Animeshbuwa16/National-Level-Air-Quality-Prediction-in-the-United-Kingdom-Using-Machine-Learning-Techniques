@@ -1,0 +1,110 @@
+# Models
+
+Serialised model artefacts are not included in this repository
+due to file size. Follow the steps below to regenerate them.
+
+---
+
+## How to Regenerate Models
+
+### Step 1 — Download Data
+Follow instructions in `data/README.md` to download the
+DEFRA CSV file and place it in the `/data` folder.
+
+### Step 2 — Run Training Pipeline
+```bash
+python src/train_model.py
+```
+
+This will automatically generate all model artefacts
+in this `/models` folder.
+
+---
+
+## Generated Files
+
+| File | Description | Algorithm |
+|---|---|---|
+| `rf_model.pkl` | Trained Random Forest classifier | Ensemble |
+| `xgb_model.pkl` | Trained XGBoost classifier | Gradient Boosting |
+| `lstm_model.h5` | Trained LSTM deep learning model | Deep Learning |
+| `label_encoder.pkl` | AQI category label encoder | Preprocessing |
+| `location_encoder.pkl` | City name label encoder | Preprocessing |
+| `scaler.pkl` | MinMaxScaler for LSTM input | Preprocessing |
+| `feature_cols.pkl` | Feature column list | Preprocessing |
+
+---
+
+## Model Performance Summary
+
+| Model | Accuracy | Precision | Recall | F1-Score |
+|---|---|---|---|---|
+| **XGBoost** | **99.5%** | **99.4%** | **99.3%** | **99.3%** |
+| Random Forest | 98.2% | 97.9% | 97.6% | 97.7% |
+| LSTM | 95.8% | 95.1% | 94.9% | 95.0% |
+
+All metrics are macro-averaged on the SMOTE-balanced
+validation set.
+
+---
+
+## Model Configuration
+
+### Random Forest
+| Parameter | Value |
+|---|---|
+| Estimators | 200 |
+| Max depth | 20 |
+| Min samples split | 5 |
+| Min samples leaf | 2 |
+| Class weight | balanced |
+
+### XGBoost
+| Parameter | Value |
+|---|---|
+| Estimators | 300 |
+| Max depth | 8 |
+| Learning rate | 0.05 |
+| Subsample | 0.8 |
+| Column sample | 0.8 |
+| Evaluation metric | mlogloss |
+
+### LSTM
+| Parameter | Value |
+|---|---|
+| LSTM layers | 2 (128 + 64 units) |
+| Dropout | 0.2 |
+| Dense layer | 64 units ReLU |
+| Output layer | 4 units Softmax |
+| Epochs | 20 |
+| Batch size | 256 |
+| Optimiser | Adam |
+| Loss function | Categorical crossentropy |
+
+---
+
+## Training Time (approximate)
+
+| Model | Estimated Time |
+|---|---|
+| Random Forest | ~5 minutes |
+| XGBoost | ~3 minutes |
+| LSTM | ~10 minutes |
+| **Total** | **~18 minutes** |
+
+---
+
+## Class Balancing
+
+SMOTE (Synthetic Minority Oversampling Technique) was applied
+to the training partition only to address class imbalance.
+
+Original class distribution:
+| AQI Category | Proportion |
+|---|---|
+| Low | ~68% |
+| Moderate | ~21% |
+| High | ~9% |
+| Very High | ~2% |
+
+After SMOTE: equal distribution across all four classes.
